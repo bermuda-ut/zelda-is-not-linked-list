@@ -18,6 +18,7 @@ public class Player extends Entity {
     private final double STOP_SPEED = 0.01;
     private final String BLOCKED = "1";
     private final String NOT_BLOCKED = "";
+    private final String TILE_BLOCK = "block";
 
     // basic movement = project spec, not basic = what a responsible gamedev should do
     public boolean basicMovement;
@@ -134,11 +135,11 @@ public class Player extends Entity {
 
         // Check if blocked and set slippery walls according to it
         // modifies move vector accordingly
-        String blocked = MapManager.getCurrentMap().getTileProperty(temp.x, temp.y);
+        String blocked = MapManager.getCurrentMap().getTileProperty(temp.x, temp.y, TILE_BLOCK);
         if(blocked.equals(BLOCKED)) {
-            if(MapManager.getCurrentMap().getTileProperty(temp.x - move.x, temp.y).equals(NOT_BLOCKED))
+            if(MapManager.getCurrentMap().getTileProperty(temp.x - move.x, temp.y, TILE_BLOCK).equals(NOT_BLOCKED))
                 move.x = 0;
-            else if(MapManager.getCurrentMap().getTileProperty(temp.x, temp.y - move.y).equals(NOT_BLOCKED))
+            else if(MapManager.getCurrentMap().getTileProperty(temp.x, temp.y - move.y, TILE_BLOCK).equals(NOT_BLOCKED))
                 move.y = 0;
             else
                 move.set(0, 0);

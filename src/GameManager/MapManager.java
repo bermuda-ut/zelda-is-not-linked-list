@@ -78,12 +78,13 @@ public class MapManager {
     }
 
     /**
-     * get map tile blocked property at x,y coordinate
+     * get map tile property at x,y coordinate
      * @param x x-coordinate
      * @param y y-coordinate
+     * @param property property name to get
      * @return result string
      */
-    public String getTileProperty(double x, double y) {
+    public String getTileProperty(double x, double y, String property) {
         // handle limits
         if(x < 0) x = 0;
         else if(x >= mapWidth) x = mapWidth-1;
@@ -91,6 +92,6 @@ public class MapManager {
         if(y < 0) y = 0;
         else if(y >= mapWidth) y = mapWidth-1;
 
-        return map.getTileProperty(map.getTileId((int) x / mapTileWidth, (int) y / mapTileHeight, 0), "block", "");
+        return map.getTileProperty(map.getTileId((int) x / mapTileWidth, (int) y / mapTileHeight, 0), property, "");
     }
 }
