@@ -8,4 +8,5 @@ package GameManager;
 
 // Manages UI
 public class UIManager {
+    // for future use!
 }

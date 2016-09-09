@@ -109,7 +109,7 @@ public class Player extends Entity {
         } else {
             if (move.magnitude() > speed)
                 move.setDistance(speed);
-            if (move.magnitude() < STOP_SPEED)
+            else if (move.magnitude() < STOP_SPEED)
                 move.set(0, 0);
         }
 
