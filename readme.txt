@@ -10,3 +10,9 @@ The project was built with IntelliJ IDE.
 Project was also exported for Eclipse so it should compile out of the box.
 If it does not, please import required libraries manually.
 
+todo
+1. change basicMovement
+2. change entity list
+3. player -> entity move attributes and functions
+4. update player link
+5. implement rest
