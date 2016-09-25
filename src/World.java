@@ -6,7 +6,7 @@
 
 import GameManager.MapManager;
 import GameObject.*;
-import GameObject.Entity;
+import Common.Entity;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -18,6 +18,8 @@ import java.util.ArrayList;
  */
 public class World {
     private static final int ENTITY_LIMIT   = 100;
+    private static final String MAP_FILE = "assets/map.tmx";
+    private static final String MAP_DIR = "assets/";
 
     private ArrayList<Entity> entities;
     private MapManager   map;
@@ -26,7 +28,7 @@ public class World {
      * Create a new World object.
      */
     public World(Player player) throws SlickException {
-        map = new MapManager("assets/map.tmx", "assets/", player, RPG.SCREEN_WIDTH, RPG.SCREEN_HEIGHT);
+        map = new MapManager(MAP_FILE, MAP_DIR, player, RPG.SCREEN_WIDTH, RPG.SCREEN_HEIGHT);
 
         // adding for update and render
         // camera MUST render first therefore added first

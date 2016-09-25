@@ -4,10 +4,8 @@
  * StudentID : 719577
  */
 
-package GameObject;
+package Common;
 
-import Common.Vector2;
-import Common.Collidable;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;

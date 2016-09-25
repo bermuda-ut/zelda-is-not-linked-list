@@ -1,14 +1,6 @@
 /**
  * Created by noxm on 22/09/16.
  */
-package GameData;
-
-import GameObject.Entity;
-import GameObject.Player;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.HashMap;
 
 public class NPCDataMap {
     /*

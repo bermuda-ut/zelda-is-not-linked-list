@@ -1,7 +1,5 @@
 package Common;
 
-import GameObject.Entity;
-
 /**
  * Created by noxm on 22/09/16.
  */

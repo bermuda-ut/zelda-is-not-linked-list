@@ -7,10 +7,7 @@
 package GameManager;
 
 import Common.Vector2;
-import GameManager.MapManager;
-import GameObject.Entity;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
+import Common.Entity;
 
 public class CameraManager {
     public boolean followEntity;
@@ -43,12 +40,6 @@ public class CameraManager {
         double tileX = camPos.x - cameraWidth / 2,
                tileY = camPos.y - cameraHeight / 2;
 
-        // Render the map
-        // Assert = map exists.
-        // MapManager.getCurrentMap().render(tileX, tileY, cameraWidthTile, cameraHeightTile, RENDER_PADDING);
-
-        // Center to object (camera's job)
-        // g.translate((float) -tileX, (float) -tileY);
         return new Vector2(tileX, tileY);
     }
 

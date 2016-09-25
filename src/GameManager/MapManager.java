@@ -28,8 +28,8 @@ public class MapManager {
         mapHeight = map.getHeight() * map.getTileHeight();
         mapTileWidth  = map.getTileWidth();
         mapTileHeight = map.getTileHeight();
-        currMap = this;
         worldCam = new CameraManager(player, screenWidth, screenHeight, true);
+        currMap = this;
     }
 
     /**
@@ -49,7 +49,7 @@ public class MapManager {
         int padding = worldCam.RENDER_PADDING;
         map.render(-tileOffsetX, -tileOffsetY,
                 tileIndexX, tileIndexY,
-                worldCam.getCameraWidthTile() + padding, worldCam.getCameraWidthTile() + padding);
+                worldCam.getCameraWidthTile() + padding, worldCam.getCameraHeightTile() + padding);
 
         g.translate((float) -tile.x, (float) -tile.y);
     }

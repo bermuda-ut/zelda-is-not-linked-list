@@ -1,5 +1,6 @@
-package GameObject;
+package Common;
 
+import Common.Entity;
 import Common.Vector2;
 import GameManager.MapManager;
 import org.newdawn.slick.Image;
@@ -34,9 +35,11 @@ public abstract class Character extends Entity {
     private boolean isAttacking;
 
     // abstract methods
+    @Override
     public abstract void update(int delta) throws SlickException;
-    public abstract void handleDeath();
+    @Override
     public abstract void handleCollision(Entity[] entities);
+    public abstract void handleDeath();
 
     public Character(String name, Vector2 pos, Image sprite, int collisionRadius, double speed, int cooldown, int HP,
                      int damage, boolean isBasic) {
@@ -73,7 +76,7 @@ public abstract class Character extends Entity {
         currHP -= dmg;
     }
 
-    void handleMovement(int delta) {
+    protected void handleMovement(int delta) {
         // move char
         if(moveCheck(delta))
             getPos().add(getMove());
