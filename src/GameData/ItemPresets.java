@@ -8,21 +8,21 @@ import org.newdawn.slick.Image;
  * Created by noxm on 25/09/16.
  */
 public abstract class ItemPresets {
-    private static String[] nameData = {
+    private static final String[] NAME_DATA = {
             "Amulet of Vitality",
             "Sword of Strength",
             "Tome of Agility",
             "Elixir of Life"
     };
 
-    private static String[] spriteData = {
+    private static final String[] SPRITE_DATA = {
             "assets/items/amulet.png",
             "assets/items/sword.png",
             "assets/items/tome.png",
             "assets/items/elixir.png",
     };
 
-    private static int[] collData = {
+    private static final int[] COLL_DATA = {
             50,
             50,
             50,
@@ -31,7 +31,7 @@ public abstract class ItemPresets {
 
     public static void addItemByID(int id, double x, double y, boolean picked, World world) {
         try {
-            world.addEntity(new Item(id, nameData[id], new Vector2(x, y), new Image(spriteData[id]), collData[id], picked));
+            world.addEntity(new Item(id, NAME_DATA[id], new Vector2(x, y), new Image(SPRITE_DATA[id]), COLL_DATA[id], picked));
         } catch (Exception e) {
             System.out.println("No such item with ID" + id);
             return;

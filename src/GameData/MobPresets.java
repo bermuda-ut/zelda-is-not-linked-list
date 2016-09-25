@@ -2,9 +2,7 @@ package GameData;
 
 import Common.Vector2;
 import GameObject.Mob;
-import org.lwjgl.Sys;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 
 /**
  * Created by noxm on 25/09/16.
@@ -19,7 +17,7 @@ public abstract class MobPresets {
      *  3 | skeleton
      *  4 | draelic
      */
-    private static int[] hpData  = {
+    private static final int[] HP_DATA = {
             40,
             60,
             40,
@@ -27,7 +25,7 @@ public abstract class MobPresets {
             140,
     };
 
-    private static int[] cdData  = {
+    private static final int[] CD_DATA = {
             0,
             800,
             200,
@@ -35,7 +33,7 @@ public abstract class MobPresets {
             400,
     };
 
-    private static int[] collData  = {
+    private static final int[] COLL_DATA = {
             50,
             50,
             50,
@@ -43,7 +41,7 @@ public abstract class MobPresets {
             50,
     };
 
-    private static int[] dmgData  = {
+    private static final int[] DMG_DATA = {
             0,
             10,
             8,
@@ -51,7 +49,7 @@ public abstract class MobPresets {
             30,
     };
 
-    private static double[] speedData  = {
+    private static final double[] SPEED_DATA = {
             10,
             10,
             10,
@@ -59,7 +57,7 @@ public abstract class MobPresets {
             10,
     };
 
-    private static String[] nameData  = {
+    private static final String[] NAME_DATA = {
             "Giant Bat",
             "Zombie",
             "Bandit",
@@ -67,7 +65,7 @@ public abstract class MobPresets {
             "Draelic",
     };
 
-    private static String[] spriteData  = {
+    private static final String[] SPRITE_DATA = {
             "assets/units/dreadbat.png",
             "assets/units/zombie.png",
             "assets/units/bandit.png",
@@ -75,7 +73,7 @@ public abstract class MobPresets {
             "assets/units/necromancer.png",
     };
 
-    private static boolean[] aggroData  = {
+    private static final boolean[] AGGRO_DATA = {
             false,
             true,
             true,
@@ -87,8 +85,8 @@ public abstract class MobPresets {
 
     public static void addMobByID(int id, double x, double y, World world) {
         try {
-            world.addEntity(new Mob(id, nameData[id], new Vector2(x, y), new Image(spriteData[id]), collData[id],
-                    speedData[id], cdData[id], hpData[id], dmgData[id], mobMovementBasic, aggroData[id]));
+            world.addEntity(new Mob(id, NAME_DATA[id], new Vector2(x, y), new Image(SPRITE_DATA[id]), COLL_DATA[id],
+                    SPEED_DATA[id], CD_DATA[id], HP_DATA[id], DMG_DATA[id], mobMovementBasic, AGGRO_DATA[id]));
         } catch (Exception e) {
             System.out.println("No such monster with ID" + id);
             return;

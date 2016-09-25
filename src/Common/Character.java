@@ -3,6 +3,7 @@ package Common;
 import Common.Entity;
 import Common.Vector2;
 import GameManager.MapManager;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -59,21 +60,21 @@ public abstract class Character extends Entity {
         dc = speed * DECEL_MODIFIER;
     }
 
-    private void updateCooldown(int delta) {
-        cooldown -= delta;
-        cooldown = (cooldown < 0) ? 0 : cooldown;
-    }
-
-    public void talk(String line) {
+    public void talk(String line, Graphics g) {
 
     }
 
-    public void displayStatus() {
+    public void displayStatus(Graphics g) {
 
     }
 
     public void getDamaged(int dmg) {
         currHP -= dmg;
+    }
+
+    protected void updateCooldown(int delta) {
+        cooldown -= delta;
+        cooldown = (cooldown < 0) ? 0 : cooldown;
     }
 
     protected void handleMovement(int delta) {

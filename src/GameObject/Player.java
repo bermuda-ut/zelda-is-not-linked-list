@@ -45,7 +45,8 @@ public class Player extends Character {
      */
     @Override
     public void update(int delta) throws SlickException {
-        this.handleMovement(delta);
+        handleMovement(delta);
+        updateCooldown(delta);
     }
 
     @Override

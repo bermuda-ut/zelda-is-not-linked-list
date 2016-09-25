@@ -46,7 +46,7 @@ public class RPG extends BasicGame {
     public void init(GameContainer gc) throws SlickException {
         // input manager is passed on to GameData.World to attach player that is in the world
         player = new Player(PLAYER_STARTING_POS.x, PLAYER_STARTING_POS.y, PLAYER_SPEED, PLAYER_SPRITE);
-        inputManager = new InputManager(player);
+        inputManager = new InputManager(player, SCREEN_WIDTH, SCREEN_HEIGHT);
         worldCam = new CameraManager(player, RPG.SCREEN_WIDTH, RPG.SCREEN_HEIGHT, true);
         world = new World(player, worldCam);
         ui = new UIManager(player, worldCam);
@@ -60,7 +60,7 @@ public class RPG extends BasicGame {
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
         // player input MUST be prioritized.
-        inputManager.update(gc, SCREEN_WIDTH, SCREEN_HEIGHT);
+        inputManager.update(gc);
         // update world according to it
         world.update(gc, delta);
     }
