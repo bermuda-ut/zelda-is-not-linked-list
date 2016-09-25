@@ -1,4 +1,4 @@
-/*
+package GameData;/*
  * Created by Bermuda_UT on 28/08/16.
  * Name      : Max Lee
  * StudentID : 719577
@@ -18,15 +18,15 @@ import java.util.ArrayList;
  * (Designed to be instantiated just once for the whole game).
  */
 public class World {
-    private static final int ENTITY_LIMIT   = 100;
+    private static final int ENTITY_LIMIT   = 10000;
     private static final String MAP_FILE = "assets/map.tmx";
     private static final String MAP_DIR = "assets/";
 
     private ArrayList<Entity> entities;
-    private MapManager   map;
+    private MapManager map;
 
     /**
-     * Create a new World object.
+     * Create a new GameData.World object.
      */
     public World(Player player, CameraManager cam) throws SlickException {
         map = new MapManager(MAP_FILE, MAP_DIR, cam);
@@ -35,6 +35,9 @@ public class World {
         // camera MUST render first therefore added first
         entities = new ArrayList<>();
         addEntity(player);
+        MobPresets.addAllMobs(this);
+        ItemPresets.addAllItems(this);
+        NPCPresets.addAllNPC(this);
     }
 
     /**
@@ -47,6 +50,7 @@ public class World {
             entities.add(entity);
             return true;
         }
+        System.out.println("Entity Limit exceeded!");
         return false;
     }
 

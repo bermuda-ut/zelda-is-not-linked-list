@@ -1,7 +1,9 @@
 package GameManager;
 
 import Common.Vector2;
+import GameObject.Item;
 import GameObject.Player;
+import PlayerData.Inventory;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -57,13 +59,13 @@ public class UIManager {
         text_y = screenheight - PANEL_HEIGHT + 25;
         g.setColor(LABEL);
         g.drawString("Health:", text_x, text_y);
-        text = "??/??";                                 // TODO: HP / Max-HP
+        text = player.getCurrHP() + "/" +player.getMaxHP();
 
         bar_x = 90;
         bar_y = screenheight - PANEL_HEIGHT + 20;
         bar_width = 90;
         bar_height = 30;
-        health_percent = 0.75f;                         // TODO: HP / Max-HP
+        health_percent = player.getCurrHP() / player.getMaxHP();
         hp_bar_width = (int) (bar_width * health_percent);
         text_x = bar_x + (bar_width - g.getFont().getWidth(text)) / 2;
         g.setColor(BAR_BG);
@@ -78,14 +80,14 @@ public class UIManager {
         g.setColor(LABEL);
         g.drawString("Damage:", text_x, text_y);
         text_x += 80;
-        text = "??";                                    // TODO: Damage
+        text = player.getDamage() + "";
         g.setColor(VALUE);
         g.drawString(text, text_x, text_y);
         text_x += 40;
         g.setColor(LABEL);
         g.drawString("Rate:", text_x, text_y);
         text_x += 55;
-        text = "??";                                    // TODO: Cooldown
+        text = player.getCooldown() + "";
         g.setColor(VALUE);
         g.drawString(text, text_x, text_y);
 
@@ -101,9 +103,9 @@ public class UIManager {
 
         inv_x = 490;
         inv_y = screenheight - PANEL_HEIGHT + ((PANEL_HEIGHT - 72) / 2);
-        // for (each item in the player's inventory)                // TODO
-        {
-            // Render the item to (inv_x, inv_y)
+        Item[] items = player.getInventory().getItems();
+        for(int i = 0; i < player.getInventory().currItemCount; i++) {
+            items[i].getSprite().draw(inv_x, inv_y);
             inv_x += 72;
         }
 

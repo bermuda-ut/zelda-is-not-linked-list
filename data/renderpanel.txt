@@ -1,4 +1,4 @@
-This method renders the status panel -- it should go in the World class.
+This method renders the status panel -- it should go in the GameData.World class.
 We provide this code because it's very fiddly to figure out where to place
 everything, but you don't have to use it.
 

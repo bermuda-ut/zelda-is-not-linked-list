@@ -5,6 +5,7 @@
  */
 
 import Common.Vector2;
+import GameData.World;
 import GameManager.CameraManager;
 import GameManager.UIManager;
 import GameObject.Player;
@@ -43,7 +44,7 @@ public class RPG extends BasicGame {
      */
     @Override
     public void init(GameContainer gc) throws SlickException {
-        // input manager is passed on to World to attach player that is in the world
+        // input manager is passed on to GameData.World to attach player that is in the world
         player = new Player(PLAYER_STARTING_POS.x, PLAYER_STARTING_POS.y, PLAYER_SPEED, PLAYER_SPRITE);
         inputManager = new InputManager(player);
         worldCam = new CameraManager(player, RPG.SCREEN_WIDTH, RPG.SCREEN_HEIGHT, true);
@@ -73,7 +74,7 @@ public class RPG extends BasicGame {
         // UI render
         // uiManager.render(g);
 
-        // World Render
+        // GameData.World Render
         world.render(g);
         ui.render(g, SCREEN_WIDTH, SCREEN_HEIGHT);
     }
