@@ -12,7 +12,7 @@ import GameObject.Entity;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-public class Camera {
+public class CameraManager {
     public boolean followEntity;
     // render padding is required for smoothing offset
     public final int RENDER_PADDING = 2;
@@ -27,7 +27,7 @@ public class Camera {
      * @param cameraWidth width, used to render map appropriately
      * @param cameraHeight screen height, used to render map appropriately
      */
-    public Camera(Entity toFollow, int cameraWidth, int cameraHeight, boolean followEntity) {
+    public CameraManager(Entity toFollow, int cameraWidth, int cameraHeight, boolean followEntity) {
         this.pos = new Vector2();
         this.toFollow     = toFollow;
         this.cameraHeight = cameraHeight;

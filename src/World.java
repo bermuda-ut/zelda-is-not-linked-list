@@ -4,9 +4,6 @@
  * StudentID : 719577
  */
 
-import Common.Vector2;
-import GameManager.Camera;
-import GameManager.InputManager;
 import GameManager.MapManager;
 import GameObject.*;
 import GameObject.Entity;

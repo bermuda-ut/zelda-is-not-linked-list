@@ -20,7 +20,7 @@ public class MapManager {
     private static int mapWidth, mapHeight, mapTileWidth, mapTileHeight;
 
     private TiledMap map;
-    private Camera worldCam;
+    private CameraManager worldCam;
 
     public MapManager(String ref, String loc, Player player, int screenWidth, int screenHeight) throws SlickException {
         map = new TiledMap(ref, loc);
@@ -29,7 +29,7 @@ public class MapManager {
         mapTileWidth  = map.getTileWidth();
         mapTileHeight = map.getTileHeight();
         currMap = this;
-        worldCam = new Camera(player, screenWidth, screenHeight, true);
+        worldCam = new CameraManager(player, screenWidth, screenHeight, true);
     }
 
     /**

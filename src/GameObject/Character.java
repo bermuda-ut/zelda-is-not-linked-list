@@ -116,7 +116,7 @@ public abstract class Character extends Entity {
         }
 
         // sprite horizontal flipping according to move
-        if(move.magnitude() != 0)
+        if(move.x != 0)
             setCurrSprite((move.x >= 0) ? getSprite() : getSprite().getFlippedCopy(true, false));
 
         // now calculate how much you are actually going to move according to frametime
