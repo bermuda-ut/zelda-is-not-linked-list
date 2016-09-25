@@ -4,6 +4,7 @@
  * StudentID : 719577
  */
 
+import GameManager.CameraManager;
 import GameManager.MapManager;
 import GameObject.*;
 import Common.Entity;
@@ -27,8 +28,8 @@ public class World {
     /**
      * Create a new World object.
      */
-    public World(Player player) throws SlickException {
-        map = new MapManager(MAP_FILE, MAP_DIR, player, RPG.SCREEN_WIDTH, RPG.SCREEN_HEIGHT);
+    public World(Player player, CameraManager cam) throws SlickException {
+        map = new MapManager(MAP_FILE, MAP_DIR, cam);
 
         // adding for update and render
         // camera MUST render first therefore added first

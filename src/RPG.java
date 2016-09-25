@@ -5,6 +5,8 @@
  */
 
 import Common.Vector2;
+import GameManager.CameraManager;
+import GameManager.UIManager;
 import GameObject.Player;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
@@ -23,7 +25,8 @@ public class RPG extends BasicGame {
     // manager is not part of the game world (not an entity) and managed differently.
     private InputManager inputManager;
     private Player player;
-
+    private UIManager ui;
+    private CameraManager worldCam;
     public static final int SCREEN_WIDTH  = 800;
     public static final int SCREEN_HEIGHT = 600;
     private static final Vector2 PLAYER_STARTING_POS = new Vector2(756, 684);
@@ -43,7 +46,9 @@ public class RPG extends BasicGame {
         // input manager is passed on to World to attach player that is in the world
         player = new Player(PLAYER_STARTING_POS.x, PLAYER_STARTING_POS.y, PLAYER_SPEED, PLAYER_SPRITE);
         inputManager = new InputManager(player);
-        world = new World(player);
+        worldCam = new CameraManager(player, RPG.SCREEN_WIDTH, RPG.SCREEN_HEIGHT, true);
+        world = new World(player, worldCam);
+        ui = new UIManager(player, worldCam);
     }
 
     /**
@@ -70,6 +75,7 @@ public class RPG extends BasicGame {
 
         // World Render
         world.render(g);
+        ui.render(g, SCREEN_WIDTH, SCREEN_HEIGHT);
     }
 
     /**

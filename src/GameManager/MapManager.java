@@ -17,19 +17,23 @@ public class MapManager {
     // goes with world, expected to be instantiated ONCE.
     // private static with public getter to give access to map info to all classes without passing around reference.
     private static MapManager currMap;
-    private static int mapWidth, mapHeight, mapTileWidth, mapTileHeight;
+    private static int mapWidth, mapHeight, mapTileWidth, mapTileHeight, cameraWidthTile, cameraHeightTile;
 
     private TiledMap map;
     private CameraManager worldCam;
 
-    public MapManager(String ref, String loc, Player player, int screenWidth, int screenHeight) throws SlickException {
+    public MapManager(String ref, String loc, CameraManager worldCam) throws SlickException {
+        this.worldCam = worldCam;
+
         map = new TiledMap(ref, loc);
         mapWidth  = map.getWidth() * map.getTileWidth();
         mapHeight = map.getHeight() * map.getTileHeight();
         mapTileWidth  = map.getTileWidth();
         mapTileHeight = map.getTileHeight();
-        worldCam = new CameraManager(player, screenWidth, screenHeight, true);
         currMap = this;
+
+        cameraWidthTile = (int) Math.ceil(worldCam.getCameraWidth() / MapManager.getMapTileWidth());
+        cameraHeightTile = (int) Math.ceil(worldCam.getCameraHeight() / MapManager.getMapTileHeight());
     }
 
     /**
@@ -45,11 +49,12 @@ public class MapManager {
         int tileOffsetX = (int) tile.x % mapTileWidth,
             tileOffsetY = (int) tile.y % mapTileHeight;
 
+
         // Render the tileset
         int padding = worldCam.RENDER_PADDING;
         map.render(-tileOffsetX, -tileOffsetY,
                 tileIndexX, tileIndexY,
-                worldCam.getCameraWidthTile() + padding, worldCam.getCameraHeightTile() + padding);
+                cameraWidthTile + padding, cameraHeightTile + padding);
 
         g.translate((float) -tile.x, (float) -tile.y);
     }

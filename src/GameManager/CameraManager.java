@@ -17,7 +17,7 @@ public class CameraManager {
     private Entity toFollow;
     private Vector2 pos;
     private int cameraWidth, cameraHeight;
-    private int cameraWidthTile, cameraHeightTile;
+    //private int cameraWidthTile, cameraHeightTile;
 
     /**
      * @param toFollow Entity to follow
@@ -29,8 +29,6 @@ public class CameraManager {
         this.toFollow     = toFollow;
         this.cameraHeight = cameraHeight;
         this.cameraWidth  = cameraWidth;
-        this.cameraHeightTile = (int) Math.ceil(cameraHeight / MapManager.getMapTileHeight());
-        this.cameraWidthTile  = (int) Math.ceil(cameraWidth  / MapManager.getMapTileWidth());
         this.followEntity     = followEntity;
     }
 
@@ -43,6 +41,15 @@ public class CameraManager {
         return new Vector2(tileX, tileY);
     }
 
+    public int getCameraWidth() {
+        return cameraWidth;
+    }
+
+    public int getCameraHeight() {
+        return cameraHeight;
+    }
+
+   /*
     public int getCameraWidthTile() {
         return cameraWidthTile;
     }
@@ -50,4 +57,5 @@ public class CameraManager {
     public int getCameraHeightTile() {
         return cameraHeightTile;
     }
+    */
 }

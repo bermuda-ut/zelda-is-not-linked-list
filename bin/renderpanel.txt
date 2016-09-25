@@ -1,38 +1,22 @@
-package GameManager;
+This method renders the status panel -- it should go in the World class.
+We provide this code because it's very fiddly to figure out where to place
+everything, but you don't have to use it.
 
-import Common.Vector2;
-import GameObject.Player;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
+This expects that you have defined a constant in the RPG class:
 
-/**
- *
- */
-public class UIManager {
-    public static final int PANEL_HEIGHT = 70;
-    public static final String PANEL_DIR = "assets/panel.png";
-    CameraManager worldCam;
-    Player player;
-    Image panel;
+    public static final int panelheight = 70;
 
-    public UIManager(Player player, CameraManager worldCam) {
-        try {
-            panel = new Image(PANEL_DIR);
-        } catch (SlickException e) {
-            e.printStackTrace();
-        }
+It also assumes that you have a field called "panel" of type Image in your
+Player class, which has loaded the supplied file "panel.png".
 
-        this.worldCam = worldCam;
-        this.player = player;
-    }
+You will have to fill in the lines marked "TODO" with the actual values from
+the player's state.
 
-
-    public void render(Graphics g, int screenwidth, int screenheight) throws SlickException{
-        Vector2 tile = worldCam.getRenderPos();
-        g.translate((float) tile.x, (float) tile.y);
-
+    /** Renders the player's status panel.
+     * @param g The current Slick graphics context.
+     */
+    public void renderPanel(Graphics g)
+    {
         // Panel colours
         Color LABEL = new Color(0.9f, 0.9f, 0.4f);          // Gold
         Color VALUE = new Color(1.0f, 1.0f, 1.0f);          // White
@@ -50,17 +34,17 @@ public class UIManager {
         float health_percent;       // Player's health, as a percentage
 
         // Panel background image
-        panel.draw(0, screenheight - PANEL_HEIGHT);
+        panel.draw(0, RPG.screenheight - RPG.panelheight);
 
         // Display the player's health
         text_x = 15;
-        text_y = screenheight - PANEL_HEIGHT + 25;
+        text_y = RPG.screenheight - RPG.panelheight + 25;
         g.setColor(LABEL);
         g.drawString("Health:", text_x, text_y);
         text = "??/??";                                 // TODO: HP / Max-HP
 
         bar_x = 90;
-        bar_y = screenheight - PANEL_HEIGHT + 20;
+        bar_y = RPG.screenheight - RPG.panelheight + 20;
         bar_width = 90;
         bar_height = 30;
         health_percent = 0.75f;                         // TODO: HP / Max-HP
@@ -93,19 +77,18 @@ public class UIManager {
         g.setColor(LABEL);
         g.drawString("Items:", 420, text_y);
         bar_x = 490;
-        bar_y = screenheight - PANEL_HEIGHT + 10;
+        bar_y = RPG.screenheight - RPG.panelheight + 10;
         bar_width = 288;
         bar_height = bar_height + 20;
         g.setColor(BAR_BG);
         g.fillRect(bar_x, bar_y, bar_width, bar_height);
 
         inv_x = 490;
-        inv_y = screenheight - PANEL_HEIGHT + ((PANEL_HEIGHT - 72) / 2);
+        inv_y = RPG.screenheight - RPG.panelheight
+            + ((RPG.panelheight - 72) / 2);
         // for (each item in the player's inventory)                // TODO
         {
             // Render the item to (inv_x, inv_y)
             inv_x += 72;
         }
-
     }
-}
