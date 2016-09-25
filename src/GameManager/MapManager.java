@@ -6,6 +6,9 @@
 
 package GameManager;
 
+import Common.Vector2;
+import GameObject.Player;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
@@ -17,37 +20,38 @@ public class MapManager {
     private static int mapWidth, mapHeight, mapTileWidth, mapTileHeight;
 
     private TiledMap map;
+    private Camera worldCam;
 
-    public MapManager(String ref, String loc) throws SlickException {
+    public MapManager(String ref, String loc, Player player, int screenWidth, int screenHeight) throws SlickException {
         map = new TiledMap(ref, loc);
         mapWidth  = map.getWidth() * map.getTileWidth();
         mapHeight = map.getHeight() * map.getTileHeight();
         mapTileWidth  = map.getTileWidth();
         mapTileHeight = map.getTileHeight();
         currMap = this;
+        worldCam = new Camera(player, screenWidth, screenHeight, true);
     }
 
     /**
      * render map
-     * @param tileX starting tile-x
-     * @param tileY starting tile-y
-     * @param screenWidthTile number of tiles for width
-     * @param screenHeightTile number of tiles for height
-     * @param padding padding to consider
      * @throws SlickException
      */
-    public void render(double tileX, double tileY, int screenWidthTile, int screenHeightTile, int padding) throws SlickException {
+    public void render(Graphics g) throws SlickException {
+        Vector2 tile = worldCam.getRenderPos();
         // tile index to start rendering
-        int tileIndexX = (int) tileX / mapTileWidth,
-            tileIndexY = (int) tileY / mapTileHeight;
+        int tileIndexX = (int) tile.x / mapTileWidth,
+            tileIndexY = (int) tile.y / mapTileHeight;
         // offset amount to spawn in the tileset relative to index
-        int tileOffsetX = (int) tileX % mapTileWidth,
-            tileOffsetY = (int) tileY % mapTileHeight;
+        int tileOffsetX = (int) tile.x % mapTileWidth,
+            tileOffsetY = (int) tile.y % mapTileHeight;
 
         // Render the tileset
+        int padding = worldCam.RENDER_PADDING;
         map.render(-tileOffsetX, -tileOffsetY,
                 tileIndexX, tileIndexY,
-                screenWidthTile + padding, screenHeightTile + padding);
+                worldCam.getCameraWidthTile() + padding, worldCam.getCameraWidthTile() + padding);
+
+        g.translate((float) -tile.x, (float) -tile.y);
     }
 
 

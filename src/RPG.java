@@ -4,6 +4,8 @@
  * StudentID : 719577
  */
 
+import Common.Vector2;
+import GameObject.Player;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.BasicGame;
@@ -20,9 +22,13 @@ public class RPG extends BasicGame {
     private World world;
     // manager is not part of the game world (not an entity) and managed differently.
     private InputManager inputManager;
+    private Player player;
 
     public static final int SCREEN_WIDTH  = 800;
     public static final int SCREEN_HEIGHT = 600;
+    private static final Vector2 PLAYER_STARTING_POS = new Vector2(756, 684);
+    private static final float PLAYER_SPEED = 0.25f;
+    private static final String PLAYER_SPRITE = "assets/units/player.png";
 
     public RPG() {
         super("Zelda_is_not_Link[ed_List].exe");
@@ -34,9 +40,10 @@ public class RPG extends BasicGame {
      */
     @Override
     public void init(GameContainer gc) throws SlickException {
-        inputManager = new InputManager();
         // input manager is passed on to World to attach player that is in the world
-        world = new World(inputManager);
+        player = new Player(PLAYER_STARTING_POS.x, PLAYER_STARTING_POS.y, PLAYER_SPEED, PLAYER_SPRITE);
+        inputManager = new InputManager(player);
+        world = new World(player);
     }
 
     /**

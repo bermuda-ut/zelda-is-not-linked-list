@@ -5,6 +5,7 @@
  */
 
 import Common.Vector2;
+import GameManager.Camera;
 import GameManager.InputManager;
 import GameManager.MapManager;
 import GameObject.*;
@@ -19,31 +20,20 @@ import java.util.ArrayList;
  * (Designed to be instantiated just once for the whole game).
  */
 public class World {
-    private static final Vector2 PLAYER_STARTING_POS = new Vector2(756, 684);
-    private static final float PLAYER_SPEED = 0.25f;
     private static final int ENTITY_LIMIT   = 100;
 
     private ArrayList<Entity> entities;
-    private InputManager inputManager;
     private MapManager   map;
-    private Player       player;
-    private Camera       worldCam;
 
     /**
      * Create a new World object.
      */
-    public World(InputManager inputManager) throws SlickException {
-        this.inputManager = inputManager;
-
-        map    = new MapManager("assets/map.tmx", "assets/");
-        player = new Player(PLAYER_STARTING_POS.x, PLAYER_STARTING_POS.y, PLAYER_SPEED, "assets/units/player.png");
-        worldCam = new Camera(player, RPG.SCREEN_WIDTH, RPG.SCREEN_HEIGHT, true);
-        inputManager.attachPlayer(player);
+    public World(Player player) throws SlickException {
+        map = new MapManager("assets/map.tmx", "assets/", player, RPG.SCREEN_WIDTH, RPG.SCREEN_HEIGHT);
 
         // adding for update and render
         // camera MUST render first therefore added first
         entities = new ArrayList<>();
-        addEntity(worldCam);
         addEntity(player);
     }
 
@@ -61,15 +51,6 @@ public class World {
     }
 
     /**
-     * Update current player instance and attach to input manager accordingly
-     * @param player new player intance
-     */
-    public void updatePlayer(Player player) {
-        this.player = player;
-        this.inputManager.attachPlayer(player);
-    }
-
-    /**
      * Update the game state for a frame.
      * @param delta Time passed since last frame (milliseconds).
      */
@@ -84,6 +65,7 @@ public class World {
      */
     public void render(Graphics g) throws SlickException {
         // Render all entities
+        map.render(g);
         for (int i = 0; i < entities.size(); i++)
             entities.get(i).render(g);
     }

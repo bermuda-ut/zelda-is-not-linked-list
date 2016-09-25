@@ -15,6 +15,11 @@ public class Vector2 {
         this.y = y;
     }
 
+    public Vector2() {
+        this.x = 0;
+        this.y = 0;
+    }
+
     // basic calculations
     public Vector2 normalizedCopy() {
         Vector2 norm = this.copy();

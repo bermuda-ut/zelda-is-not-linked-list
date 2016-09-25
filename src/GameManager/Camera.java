@@ -4,19 +4,21 @@
  * StudentID : 719577
  */
 
-package GameObject;
+package GameManager;
 
 import Common.Vector2;
 import GameManager.MapManager;
+import GameObject.Entity;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-public class Camera extends Entity {
+public class Camera {
     public boolean followEntity;
     // render padding is required for smoothing offset
-    private final int RENDER_PADDING = 2;
-    private Entity toFollow;
+    public final int RENDER_PADDING = 2;
 
+    private Entity toFollow;
+    private Vector2 pos;
     private int cameraWidth, cameraHeight;
     private int cameraWidthTile, cameraHeightTile;
 
@@ -26,7 +28,7 @@ public class Camera extends Entity {
      * @param cameraHeight screen height, used to render map appropriately
      */
     public Camera(Entity toFollow, int cameraWidth, int cameraHeight, boolean followEntity) {
-        this.pos = new Vector2(0,0);
+        this.pos = new Vector2();
         this.toFollow     = toFollow;
         this.cameraHeight = cameraHeight;
         this.cameraWidth  = cameraWidth;
@@ -35,29 +37,26 @@ public class Camera extends Entity {
         this.followEntity     = followEntity;
     }
 
-    /**
-     * Render relevant parts of the map and center camera to in-game entity
-     * @param g Slick2D Graphics
-     * @throws SlickException
-     */
-    public void render(Graphics g) throws SlickException {
-        Vector2 camPos;
-
-        if(followEntity) camPos = toFollow.getPos();
-        else camPos = this.pos;
+    public Vector2 getRenderPos() {
+        Vector2 camPos = (followEntity) ? toFollow.getPos() : pos;
 
         double tileX = camPos.x - cameraWidth / 2,
                tileY = camPos.y - cameraHeight / 2;
 
         // Render the map
         // Assert = map exists.
-        MapManager.getCurrentMap().render(tileX, tileY, cameraWidthTile, cameraHeightTile, RENDER_PADDING);
+        // MapManager.getCurrentMap().render(tileX, tileY, cameraWidthTile, cameraHeightTile, RENDER_PADDING);
 
         // Center to object (camera's job)
-        g.translate((float) -tileX, (float) -tileY);
+        // g.translate((float) -tileX, (float) -tileY);
+        return new Vector2(tileX, tileY);
     }
 
-    public void update(int delta) {
+    public int getCameraWidthTile() {
+        return cameraWidthTile;
+    }
 
+    public int getCameraHeightTile() {
+        return cameraHeightTile;
     }
 }

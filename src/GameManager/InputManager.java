@@ -27,13 +27,9 @@ public class InputManager {
                     RIGHTALT = Input.KEY_RIGHT,
                     TOGGLEMOVEMENT = Input.KEY_X;
 
-    /**
-     * @param player player to controll
-     */
-    public void attachPlayer(Player player) {
+    public InputManager(Player player) {
         this.player = player;
     }
-
 
     /**
      * update per frame
@@ -56,14 +52,14 @@ public class InputManager {
         if (input.isKeyDown(LEFT) || input.isKeyDown(LEFTALT))
             dx -= player.movementAttribute();
 
-        if (player.basicMovement)
+        if (player.isBasicMovement())
             player.getMove().set(dx, dy);
         else
             player.getMove().add(dx, dy);
 
 
         // Mouse Input Movement
-        if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && !player.basicMovement) {
+        if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && !player.isBasicMovement()) {
             double mouseWorldX = input.getMouseX() - screenWidth/2 + player.getPos().x;
             double mouseWorldY = input.getMouseY() - screenHeight/2 + player.getPos().y;
             player.getMove().set(mouseWorldX - player.getPos().x, mouseWorldY - player.getPos().y);
@@ -75,8 +71,8 @@ public class InputManager {
             gc.exit();
 
         if (input.isKeyPressed(TOGGLEMOVEMENT)) {
-            player.basicMovement = !player.basicMovement;
-            System.out.println("BasicMovement = " + player.basicMovement);
+            player.toggleMovement();
+            System.out.println("BasicMovement = " + player.isBasicMovement());
         }
     }
 }
