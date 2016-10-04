@@ -27,15 +27,22 @@ public class Vector2 {
         return norm;
     }
 
+    public boolean equals(Vector2 n) {
+        if(n.x == this.x && n.y == this.y)
+            return true;
+        return false;
+    }
+
     public Vector2 copy() {
         Vector2 n = new Vector2(x, y);
         return n;
     }
 
     public Vector2 multiply(double v) {
-        this.x *= v;
-        this.y *= v;
-        return this;
+        Vector2 n = new Vector2(this.x, this.y);
+        n.x *= v;
+        n.y *= v;
+        return n;
     }
 
     public Vector2 add(double x, double y) {

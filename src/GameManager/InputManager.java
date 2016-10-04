@@ -20,13 +20,9 @@ public class InputManager {
 
     // bindings
     private final int UP     = Input.KEY_W,
-                    UPALT    = Input.KEY_UP,
                     DOWN     = Input.KEY_S,
-                    DOWNALT  = Input.KEY_DOWN,
                     LEFT     = Input.KEY_A,
-                    LEFTALT  = Input.KEY_LEFT,
                     RIGHT    = Input.KEY_D,
-                    RIGHTALT = Input.KEY_RIGHT,
                     TOGGLEMOVEMENT = Input.KEY_X,
                     ATTACK = Input.KEY_J,
                     TALK = Input.KEY_K;
@@ -61,7 +57,18 @@ public class InputManager {
             player.getMove().set(dx, dy);
         else
             player.getMove().add(dx, dy);
+    }
 
+    private void handleAttack(Input input) {
+        if(input.isKeyDown(ATTACK)) {
+            if(player.getCurrCooldown() == 0) {
+                player.setAttacking(true);
+                player.resetCurrCooldown();
+                return;
+            }
+        }
+
+        player.setAttacking(false);
     }
     /**
      * update per frame
@@ -73,6 +80,7 @@ public class InputManager {
 
         handleKeyboardMovement(input);
         handleMouseMovement(input);
+        handleAttack(input);
 
         // Other minor Inputs
         if (input.isKeyDown(Input.KEY_ESCAPE))

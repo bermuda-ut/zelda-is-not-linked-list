@@ -37,7 +37,7 @@ public abstract class Character extends Entity {
 
     // abstract methods
     @Override
-    public abstract void update(int delta) throws SlickException;
+    public abstract void innerUpdate(int delta) throws SlickException;
     @Override
     public abstract void handleCollision(Entity[] entities);
     public abstract void handleDeath();
@@ -73,14 +73,18 @@ public abstract class Character extends Entity {
     }
 
     protected void updateCooldown(int delta) {
-        cooldown -= delta;
-        cooldown = (cooldown < 0) ? 0 : cooldown;
+        currCooldown -= delta;
+        currCooldown = (currCooldown < 0) ? 0 : currCooldown;
+    }
+
+    public void resetCurrCooldown() {
+        currCooldown = cooldown;
     }
 
     protected void handleMovement(int delta) {
         // move char
         if(moveCheck(delta))
-            getPos().add(getMove());
+            getPos().add(getMove().multiply(delta));
 
         // update movement Atr
         if (!isBasicMovement())
@@ -124,25 +128,24 @@ public abstract class Character extends Entity {
             setCurrSprite((move.x >= 0) ? getSprite() : getSprite().getFlippedCopy(true, false));
 
         // now calculate how much you are actually going to move according to frametime
-        move.multiply(delta);
+        Vector2 moveTemp = move.multiply(delta);
 
         // calculate resulting position
         Vector2 temp = pos.copy();
-        temp.add(move);
+        temp.add(moveTemp);
 
         // within map?
         if((temp.y < 0 || temp.x < 0) ||
            (temp.y >= MapManager.getMapHeight() || temp.x >= MapManager.getMapWidth()))
             move.set(0, 0);
 
-
         // Check if blocked and set slippery walls according to it
         // modifies move vector accordingly
         String blocked = MapManager.getCurrentMap().getTileProperty(temp.x, temp.y, TILE_BLOCK);
         if(blocked.equals(BLOCKED)) {
-            if(MapManager.getCurrentMap().getTileProperty(temp.x - move.x, temp.y, TILE_BLOCK).equals(NOT_BLOCKED))
+            if(MapManager.getCurrentMap().getTileProperty(temp.x - moveTemp.x, temp.y, TILE_BLOCK).equals(NOT_BLOCKED))
                 move.x = 0;
-            else if(MapManager.getCurrentMap().getTileProperty(temp.x, temp.y - move.y, TILE_BLOCK).equals(NOT_BLOCKED))
+            else if(MapManager.getCurrentMap().getTileProperty(temp.x, temp.y - moveTemp.y, TILE_BLOCK).equals(NOT_BLOCKED))
                 move.y = 0;
             else
                 return false;

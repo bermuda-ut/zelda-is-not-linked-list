@@ -65,7 +65,7 @@ public class UIManager {
         bar_y = screenheight - PANEL_HEIGHT + 20;
         bar_width = 90;
         bar_height = 30;
-        health_percent = player.getCurrHP() / player.getMaxHP();
+        health_percent = (float) player.getCurrHP() / player.getMaxHP();
         hp_bar_width = (int) (bar_width * health_percent);
         text_x = bar_x + (bar_width - g.getFont().getWidth(text)) / 2;
         g.setColor(BAR_BG);

@@ -17,7 +17,7 @@ public class QuestEnder extends NPC {
     }
 
     @Override
-    public void update(int delta) throws SlickException {
+    public void innerUpdate(int delta) throws SlickException {
 
     }
 

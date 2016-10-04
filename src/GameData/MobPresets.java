@@ -50,11 +50,11 @@ public abstract class MobPresets {
     };
 
     private static final double[] SPEED_DATA = {
-            10,
-            10,
-            10,
-            10,
-            10,
+            0.2,
+            0.25,
+            0.25,
+            0.25,
+            0.25,
     };
 
     private static final String[] NAME_DATA = {

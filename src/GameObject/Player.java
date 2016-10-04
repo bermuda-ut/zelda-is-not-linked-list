@@ -20,6 +20,7 @@ public class Player extends Character {
     private static final int START_COLL_RAD = 5;
     private static final int INVENTORY_SIZE = 4;
     private static final String START_NAME = "Link[ed]List";
+    private static Player currPlayer;
 
     private Inventory inventory;
 
@@ -34,9 +35,16 @@ public class Player extends Character {
     public Player(double x, double y, float speed, String spriteDir) throws SlickException {
         super(START_NAME, new Vector2(x, y), new Image(spriteDir), START_COLL_RAD, speed,
               START_CD, START_HP, START_DMG, true);
-        inventory = new Inventory(INVENTORY_SIZE);
+        if(currPlayer == null) {
+            inventory = new Inventory(INVENTORY_SIZE);
+            currPlayer = this;
+        }
     }
 
+
+    public static Player getCurrPlayer() {
+        return currPlayer;
+    }
 
     /**
      * Update per frame
@@ -44,14 +52,13 @@ public class Player extends Character {
      * @throws SlickException
      */
     @Override
-    public void update(int delta) throws SlickException {
+    public void innerUpdate(int delta) throws SlickException {
         handleMovement(delta);
         updateCooldown(delta);
     }
 
     @Override
     public void handleCollision(Entity[] entities) {
-
     }
 
     @Override

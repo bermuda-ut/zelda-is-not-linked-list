@@ -59,8 +59,16 @@ public class World {
      * @param delta Time passed since last frame (milliseconds).
      */
     public void update(GameContainer gc, int delta) throws SlickException {
-        for (int i = 0; i < entities.size(); i++)
-            entities.get(i).update(delta);
+        // update player
+        Player player = (Player)entities.get(0);
+        player.update(delta);
+
+        for (int i = 1; i < entities.size(); i++) {
+            Entity entity = entities.get(i);
+            entity.update(delta);
+            if(entity.hasCollided(player))
+                entity.handleCollision(new Entity[] {player});
+        }
     }
 
     /**
