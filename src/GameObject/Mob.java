@@ -3,6 +3,7 @@ package GameObject;
 import Common.Character;
 import Common.Entity;
 import Common.Vector2;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -36,6 +37,7 @@ public class Mob extends Character {
     @Override
     public void innerUpdate(int delta) throws SlickException {
         handleDeath();
+        prevPos = this.getPos().copy();
         Vector2 playerPos = Player.getCurrPlayer().getPos();
         if(isAggro) {
             double dist = playerPos.distance(getPos());
@@ -51,7 +53,6 @@ public class Mob extends Character {
         } else {
             if(attacked) {
                 if(actionTime < RUN_TIME) {
-                    //run
                     setMove(getPos().vectorTo(playerPos).multiply(-1));
                 } else {
                     attacked = false;
@@ -68,6 +69,9 @@ public class Mob extends Character {
         }
 
         handleMovement(delta);
+
+        if(prevPos.equals(getPos()))
+            rerollPrevMove();
 
         actionTime += delta;
         updateCooldown(delta);
@@ -87,7 +91,6 @@ public class Mob extends Character {
                 if(player.isAttacking()) {
                     attacked = true;
                     this.getDamaged(player.getDamage());
-                    System.out.println("HP: " + getCurrHP());
                 }
 
                 if(isAggro && getCurrCooldown() == 0) {

@@ -16,7 +16,7 @@ public abstract class NPCPresets {
     private static final int ROLE_QUEST_ENDER = 2;
 
     private static final float[] HEAL_DATA = {
-            100
+            1.00f
     };
 
     private static final String[] NAME_DATA = {

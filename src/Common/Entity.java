@@ -6,6 +6,7 @@
 
 package Common;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -14,6 +15,8 @@ import org.newdawn.slick.SlickException;
  * Parent class for all in-game characters (player, NPC etc)
  */
 public abstract class Entity implements Collidable{
+    public final int DISPLAY_OFFSET = 10;
+    public final  int HALF_FONT_SIZE = 9;
     private Vector2 pos;
     private int collisionRadius;
     private String name;
@@ -37,10 +40,13 @@ public abstract class Entity implements Collidable{
     // collidable partial implementation
     @Override
     public boolean hasCollided(Entity entity) {
-        double p = pos.distance(entity.getPos());
-        int totalRad = this.collisionRadius;//entity.getCollisionRadius() + this.collisionRadius;
+        if(!destroyed) {
+            double p = pos.distance(entity.getPos());
+            int totalRad = this.collisionRadius;//entity.getCollisionRadius() + this.collisionRadius;
 
-        return (p < totalRad);
+            return (p < totalRad);
+        }
+        return false;
     }
 
     /**
@@ -61,12 +67,50 @@ public abstract class Entity implements Collidable{
         this.destroyed = true;
     }
 
-    // getters and setters
-
-    public boolean isDestroyed() {
-        return destroyed;
+    public final void doCollision(Entity[] entities) {
+        if(!destroyed)
+            handleCollision(entities);
     }
 
+    public final void renderStatus(Graphics g) {
+        if(!destroyed) {
+            displayStatus(g);
+        }
+    }
+
+    // this is overridden for custom displays
+    public void displayStatus(Graphics g) {
+        int height = sprite.getHeight() + DISPLAY_OFFSET;
+        Vector2 size = calcBarSize(name);
+        Vector2 loc = calcBarLoc(name, height);
+        Vector2 strLoc = calcString(name, height);
+
+        g.setColor(Color.black);
+        g.fillRect((float)loc.x, (float)loc.y, (float)size.x, (float)size.y);
+        g.setColor(Color.white);
+        g.drawString(getName(), (float)strLoc.x, (float)strLoc.y);
+    }
+
+    // for UI
+    public Vector2 calcBarSize(String str) {
+        int barWidth = HALF_FONT_SIZE*str.length() + DISPLAY_OFFSET,
+            barHeight = HALF_FONT_SIZE*2;
+        return new Vector2(barWidth, barHeight);
+    }
+
+    public Vector2 calcBarLoc(String str, int height) {
+        float barLocX = (float)getPos().x - str.length()* HALF_FONT_SIZE/2 - DISPLAY_OFFSET/2,
+              barLocY = (float)getPos().y - (float)height/2 - DISPLAY_OFFSET;
+        return new Vector2(barLocX, barLocY);
+    }
+
+    public Vector2 calcString(String str, int height) {
+        float xPos = (float) pos.x - (float) str.length() * HALF_FONT_SIZE / 2,
+              yPos = (float) pos.y - (float) height / 2 - DISPLAY_OFFSET;
+        return new Vector2(xPos, yPos);
+    }
+
+    // getters and setters
     public Image getCurrSprite() {
         return currSprite;
     }

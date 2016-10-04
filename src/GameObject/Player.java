@@ -10,6 +10,7 @@ import Common.Character;
 import Common.Entity;
 import Common.Vector2;
 import PlayerData.Inventory;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -41,6 +42,10 @@ public class Player extends Character {
         }
     }
 
+    @Override
+    public void displayStatus(Graphics g) {
+        // do nothing
+    }
 
     public static Player getCurrPlayer() {
         return currPlayer;

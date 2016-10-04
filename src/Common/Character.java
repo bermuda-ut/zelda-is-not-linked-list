@@ -3,6 +3,7 @@ package Common;
 import Common.Entity;
 import Common.Vector2;
 import GameManager.MapManager;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -17,6 +18,7 @@ public abstract class Character extends Entity {
     private final String BLOCKED = "1";
     private final String NOT_BLOCKED = "";
     private final String TILE_BLOCK = "block";
+    private final Color  HP_BAR_COL = new Color(0.8f, 0, 0, 0.8f);
 
     // movement
     private Vector2 move;
@@ -34,6 +36,7 @@ public abstract class Character extends Entity {
 
     // helper
     private boolean isAttacking;
+    private String speech;
 
     // abstract methods
     @Override
@@ -50,6 +53,7 @@ public abstract class Character extends Entity {
         this.maxHP = HP;
         this.damage = damage;
         this.basicMovement = isBasic;
+        this.speech = "";
 
         move = new Vector2();
         isAttacking = false;
@@ -61,11 +65,47 @@ public abstract class Character extends Entity {
     }
 
     public void talk(String line, Graphics g) {
+        int height = getSprite().getHeight() + DISPLAY_OFFSET + HALF_FONT_SIZE * 4;
+        Vector2 loc = calcBarLoc(line, height);
+        Vector2 size = calcBarSize(line);
+        Vector2 strLoc = calcString(line, height);
 
+        g.setColor(Color.black);
+        g.fillRect((float)loc.x, (float)loc.y, (float)size.x, (float)size.y);
+        g.setColor(Color.white);
+        g.drawString(line, (float)strLoc.x, (float)strLoc.y);
     }
 
-    public void displayStatus(Graphics g) {
+    public void setSpeech(String line) {
+        speech = line;
+    }
 
+    public float getHPpercentage() {
+        float perc = (float)getCurrHP()/getMaxHP();
+        if(perc > 0f)
+            return perc;
+        return 0f;
+    }
+
+    @Override
+    public void displayStatus(Graphics g) {
+        int height = getSprite().getHeight() + DISPLAY_OFFSET;
+        Vector2 size = calcBarSize(getName());
+        Vector2 loc = calcBarLoc(getName(), height);
+        Vector2 strLoc = calcString(getName(), height);
+
+        g.setColor(Color.black);
+        g.fillRect((float)loc.x, (float)loc.y, (float)size.x, (float)size.y);
+
+        g.setColor(HP_BAR_COL);
+        g.fillRect((float)loc.x, (float)loc.y, (float)size.x * getHPpercentage(), (float)size.y);
+
+        g.setColor(Color.white);
+        g.drawString(getName(), (float)strLoc.x, (float)strLoc.y);
+
+        if(speech.length() > 0) {
+            talk(speech, g);
+        }
     }
 
     public void getDamaged(int dmg) {

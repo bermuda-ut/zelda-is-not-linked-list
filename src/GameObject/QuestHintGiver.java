@@ -3,6 +3,7 @@ package GameObject;
 import Common.Entity;
 import Common.NPC;
 import Common.Vector2;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 

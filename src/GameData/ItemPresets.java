@@ -29,9 +29,9 @@ public abstract class ItemPresets {
             50,
     };
 
-    public static void addItemByID(int id, double x, double y, boolean picked, World world) {
+    public static void addItemByID(int id, double x, double y, World world) {
         try {
-            world.addEntity(new Item(id, NAME_DATA[id], new Vector2(x, y), new Image(SPRITE_DATA[id]), COLL_DATA[id], picked));
+            world.addEntity(new Item(id, NAME_DATA[id], new Vector2(x, y), new Image(SPRITE_DATA[id]), COLL_DATA[id]));
         } catch (Exception e) {
             System.out.println("No such item with ID" + id);
             return;
@@ -43,9 +43,16 @@ public abstract class ItemPresets {
         final Vector2 sword = new Vector2(4791, 1253);
         final Vector2 tome = new Vector2(546, 6707);
         final Vector2 elixir = new Vector2(1976, 402);
-        addItemByID(0, amulet.x, amulet.y, false, world);
-        addItemByID(1, sword.x, sword.y, false, world);
-        addItemByID(2, tome.x, tome.y, false, world);
-        addItemByID(3, elixir.x, elixir.y, false, world);
+        addItemByID(0, amulet.x, amulet.y, world);
+        addItemByID(1, sword.x, sword.y, world);
+        addItemByID(2, tome.x, tome.y, world);
+        addItemByID(3, elixir.x, elixir.y, world);
+
+        // test
+        Vector2 p = new Vector2(756, 684);
+        addItemByID(0, p.x + 100, p.y + 100, world);
+        addItemByID(1, p.x, p.y + 100, world);
+        addItemByID(2, p.x+100, p.y, world);
+        addItemByID(3, p.x-100, p.y, world);
     }
 }

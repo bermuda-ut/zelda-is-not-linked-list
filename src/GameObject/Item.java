@@ -2,6 +2,7 @@ package GameObject;
 
 import Common.Entity;
 import Common.Vector2;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -11,12 +12,10 @@ import org.newdawn.slick.SlickException;
 public class Item extends Entity {
 
     private int id;
-    private boolean pickedUp;
 
-    public Item(int id, String name, Vector2 pos, Image sprite, int collisionRadius, boolean isPickedUp) {
+    public Item(int id, String name, Vector2 pos, Image sprite, int collisionRadius) {
         super(name, pos, sprite, collisionRadius);
         this.id = id;
-        this.pickedUp = isPickedUp;
     }
 
     @Override
@@ -25,6 +24,14 @@ public class Item extends Entity {
 
     @Override
     public void handleCollision(Entity[] entities) {
+        for (Entity entity : entities) {
+            if (entity instanceof Player) {
+                Player player = (Player) entity;
+                boolean success = player.getInventory().addItem(this);
+                if(success)
+                    this.destroy();
+            }
+        }
 
     }
 

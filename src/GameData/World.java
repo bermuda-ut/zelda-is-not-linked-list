@@ -67,7 +67,7 @@ public class World {
             Entity entity = entities.get(i);
             entity.update(delta);
             if(entity.hasCollided(player))
-                entity.handleCollision(new Entity[] {player});
+                entity.doCollision(new Entity[] {player});
         }
     }
 
@@ -78,7 +78,18 @@ public class World {
     public void render(Graphics g) throws SlickException {
         // Render all entities
         map.render(g);
-        for (int i = 0; i < entities.size(); i++)
+        Player player = (Player)entities.get(0);
+
+        // render entities
+        for (int i = 1; i < entities.size(); i++) {
             entities.get(i).render(g);
+        }
+
+        // render player
+        player.render(g);
+
+        // render status
+        for (int i = 1; i < entities.size(); i++)
+            entities.get(i).renderStatus(g);
     }
 }

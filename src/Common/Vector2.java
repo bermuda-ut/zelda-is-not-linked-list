@@ -9,6 +9,7 @@ package Common;
 public class Vector2 {
     // makes more sense to be public rather than encapsulated for no reason
     public double x, y;
+    public final double DELTA = 0.0001;
 
     public Vector2(double x, double y) {
         this.x = x;
@@ -28,7 +29,7 @@ public class Vector2 {
     }
 
     public boolean equals(Vector2 n) {
-        if(n.x == this.x && n.y == this.y)
+        if(Math.abs(n.x - this.x) < DELTA && Math.abs(n.y - this.y) < DELTA)
             return true;
         return false;
     }

@@ -3,6 +3,7 @@ package GameObject;
 import Common.Entity;
 import Common.NPC;
 import Common.Vector2;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -20,12 +21,18 @@ public class Healer extends NPC {
 
     @Override
     public void innerUpdate(int delta) throws SlickException {
-
+        setSpeech("");
     }
 
     @Override
     public void handleCollision(Entity[] entities) {
-
+        for (Entity entity : entities) {
+            if (entity instanceof Player) {
+                Player player = (Player) entity;
+                player.setCurrHP((int) (player.getMaxHP() * healPercentage));
+                setSpeech("please fuck off");
+            }
+        }
     }
 
     @Override
