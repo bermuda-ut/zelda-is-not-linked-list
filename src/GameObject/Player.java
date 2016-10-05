@@ -10,6 +10,7 @@ import Common.Character;
 import Common.Entity;
 import Common.Vector2;
 import PlayerData.Inventory;
+import org.lwjgl.Sys;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -91,8 +92,8 @@ public class Player extends Character {
      */
     @Override
     public void handleDeath() {
-        if(getCurrHP() < 0 && !GOD_MODE) {
-            currPlayer.setPos(PLAYER_STARTING_POS);
+        if(getCurrHP() <= 0 && !GOD_MODE) {
+            setPos(PLAYER_STARTING_POS.copy());
             setCurrHP(getMaxHP());
         }
     }

@@ -7,7 +7,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 /**
- * characters are able to move, attack, talk, damage.
+ * characters are able to move, attack, talk, damage
  * @author MaxLee
  */
 public abstract class Character extends Entity {

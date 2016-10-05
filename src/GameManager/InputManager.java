@@ -23,13 +23,13 @@ public class InputManager {
     private int screenHeight;
 
     // bindings
-    private final int UP     = Input.KEY_W,
-                    DOWN     = Input.KEY_S,
-                    LEFT     = Input.KEY_A,
-                    RIGHT    = Input.KEY_D,
-                    TOGGLEMOVEMENT = Input.KEY_X,
-                    ATTACK = Input.KEY_J,
-                    TALK = Input.KEY_K;
+    private final int UP   = Input.KEY_UP,
+                    DOWN   = Input.KEY_DOWN,
+                    LEFT   = Input.KEY_LEFT,
+                    RIGHT  = Input.KEY_RIGHT,
+                    ATTACK = Input.KEY_A,
+                    TALK   = Input.KEY_T,
+                    TOGGLEMOVEMENT = Input.KEY_X;
 
     /**
      * create game-tied input manager
