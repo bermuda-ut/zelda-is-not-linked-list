@@ -7,21 +7,29 @@
 package GameManager;
 
 import Common.Vector2;
-import GameObject.Player;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
-// Handles map io and operations
+/**
+ * handles map for the world
+ * desied to be instantiated once
+ */
 public class MapManager {
-    // goes with world, expected to be instantiated ONCE.
-    // private static with public getter to give access to map info to all classes without passing around reference.
+    // reference to current map so that any game object can use getter to get current map.
     private static MapManager currMap;
     private static int mapWidth, mapHeight, mapTileWidth, mapTileHeight, cameraWidthTile, cameraHeightTile;
 
     private TiledMap map;
     private CameraManager worldCam;
 
+    /**
+     * create map manager
+     * @param ref reference to map.tmx
+     * @param loc location of map.tmx
+     * @param worldCam camera to get tile position from
+     * @throws SlickException
+     */
     public MapManager(String ref, String loc, CameraManager worldCam) throws SlickException {
         this.worldCam = worldCam;
 
@@ -37,7 +45,7 @@ public class MapManager {
     }
 
     /**
-     * render map
+     * slick render
      * @throws SlickException
      */
     public void render(Graphics g) throws SlickException {
@@ -80,10 +88,6 @@ public class MapManager {
 
     public static int getMapHeight() {
         return mapHeight;
-    }
-
-    public int getTileId(double x, double y) {
-        return map.getTileId((int) x / mapTileWidth, (int) y / mapTileHeight, 0);
     }
 
     /**

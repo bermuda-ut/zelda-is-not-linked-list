@@ -10,15 +10,21 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 /**
- *
+ * handle ui in game
  */
 public class UIManager {
     public static final int PANEL_HEIGHT = 70;
     public static final String PANEL_DIR = "assets/panel.png";
+
     CameraManager worldCam;
     Player player;
     Image panel;
 
+    /**
+     * create ui manager
+     * @param player player to track
+     * @param worldCam camera to track
+     */
     public UIManager(Player player, CameraManager worldCam) {
         try {
             panel = new Image(PANEL_DIR);
@@ -31,15 +37,22 @@ public class UIManager {
     }
 
 
-    public void render(Graphics g, int screenwidth, int screenheight) throws SlickException{
-        Vector2 tile = worldCam.getRenderPos();
-        g.translate((float) tile.x, (float) tile.y);
-
+    /**
+     * render ui according to given code
+     * @param g slick graphics
+     * @param screenwidth game screen width
+     * @param screenheight game screen height
+     * @throws SlickException
+     */
+    public void render(Graphics g, int screenwidth, int screenheight) throws SlickException {
         // Panel colours
         Color LABEL = new Color(0.9f, 0.9f, 0.4f);          // Gold
         Color VALUE = new Color(1.0f, 1.0f, 1.0f);          // White
         Color BAR_BG = new Color(0.0f, 0.0f, 0.0f, 0.8f);   // Black, transp
         Color BAR = new Color(0.8f, 0.0f, 0.0f, 0.8f);      // Red, transp
+
+        Vector2 tile = worldCam.getRenderPos();
+        g.translate((float) tile.x, (float) tile.y);
 
         // Variables for layout
         String text;                // Text to display

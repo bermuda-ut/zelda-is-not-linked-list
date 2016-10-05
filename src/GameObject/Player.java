@@ -14,6 +14,9 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+/**
+ * @author playable entity in game
+ */
 public class Player extends Character {
     // for testing, you can continue as negative health in G0dM0d3
     public static final boolean GOD_MODE = false;
@@ -48,9 +51,11 @@ public class Player extends Character {
         }
     }
 
+    /**
+     * no status to show, all shown in UI
+     */
     @Override
     protected void displayStatus(Graphics g) {
-        // no status to show, all shown in UI
     }
 
 
@@ -81,6 +86,9 @@ public class Player extends Character {
         // do nothing
     }
 
+    /**
+     * on death, heal to full and return to start loation
+     */
     @Override
     public void handleDeath() {
         if(getCurrHP() < 0 && !GOD_MODE) {
@@ -90,6 +98,7 @@ public class Player extends Character {
     }
 
     // getters
+
     public Inventory getInventory() {
         return inventory;
     }
