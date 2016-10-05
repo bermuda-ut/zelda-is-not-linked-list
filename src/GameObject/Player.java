@@ -15,6 +15,13 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 public class Player extends Character {
+    // for testing, you can continue as negative health in G0dM0d3
+    public static final boolean GOD_MODE = false;
+
+    public static final Vector2 PLAYER_STARTING_POS = new Vector2(756, 684);
+    public static final float PLAYER_SPEED = 0.25f;
+    public static final String PLAYER_SPRITE = "assets/units/player.png";
+
     private static final int START_HP = 100;
     private static final int START_DMG = 24;
     private static final int START_CD = 600;
@@ -32,7 +39,6 @@ public class Player extends Character {
      * @param spriteDir sprite directory
      * @throws SlickException
      */
-
     public Player(double x, double y, float speed, String spriteDir) throws SlickException {
         super(START_NAME, new Vector2(x, y), new Image(spriteDir), START_COLL_RAD, speed,
               START_CD, START_HP, START_DMG, true);
@@ -43,10 +49,15 @@ public class Player extends Character {
     }
 
     @Override
-    public void displayStatus(Graphics g) {
-        // do nothing
+    protected void displayStatus(Graphics g) {
+        // no status to show, all shown in UI
     }
 
+
+    /**
+     * return current player
+     * @return current player object
+     */
     public static Player getCurrPlayer() {
         return currPlayer;
     }
@@ -57,23 +68,31 @@ public class Player extends Character {
      * @throws SlickException
      */
     @Override
-    public void innerUpdate(int delta) throws SlickException {
+    protected void innerUpdate(int delta) throws SlickException {
         handleMovement(delta);
-        updateCooldown(delta);
     }
 
+    /**
+     * handle collision
+     * @param entities list of colliding entities
+     */
     @Override
-    public void handleCollision(Entity[] entities) {
+    protected void handleCollision(Entity[] entities) {
+        // do nothing
     }
 
     @Override
     public void handleDeath() {
-
+        if(getCurrHP() < 0 && !GOD_MODE) {
+            currPlayer.setPos(PLAYER_STARTING_POS);
+            setCurrHP(getMaxHP());
+        }
     }
 
     // getters
     public Inventory getInventory() {
         return inventory;
     }
+
 }
 

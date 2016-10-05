@@ -2,6 +2,8 @@ package GameObject;
 
 import Common.Entity;
 import Common.Vector2;
+import GameData.ItemPresets;
+import org.lwjgl.Sys;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -28,8 +30,12 @@ public class Item extends Entity {
             if (entity instanceof Player) {
                 Player player = (Player) entity;
                 boolean success = player.getInventory().addItem(this);
-                if(success)
+                if(success) {
+                    boolean attAdded = ItemPresets.applyItemEffect(player, this);
+                    if(!attAdded)
+                        System.out.println("No attribute effect set for item ID: " + this.getId());
                     this.destroy();
+                }
             }
         }
 

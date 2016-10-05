@@ -14,9 +14,12 @@ public abstract class NPCPresets {
     private static final int ROLE_HEALER = 0;
     private static final int ROLE_QUEST_HINTER = 1;
     private static final int ROLE_QUEST_ENDER = 2;
+    private static final int DEFAULT_TALKTIME = 4000;
 
     private static final float[] HEAL_DATA = {
-            1.00f
+            1.00f,
+            0f,
+            0f,
     };
 
     private static final String[] NAME_DATA = {
@@ -66,15 +69,15 @@ public abstract class NPCPresets {
             NPC toAdd;
             if(role == ROLE_HEALER) {
                 toAdd = new Healer(id, NAME_DATA[id], new Vector2(x, y), new Image(SPRITE_DATA[id]), COLL_DATA[id],
-                        SPEED_DATA[id], CD_DATA[id], HP_DATA[id], DMG_DATA[id], HEAL_DATA[id], false);
+                        SPEED_DATA[id], CD_DATA[id], HP_DATA[id], DMG_DATA[id], HEAL_DATA[id], false, DEFAULT_TALKTIME);
 
             } else if(role == ROLE_QUEST_HINTER) {
                 toAdd = new QuestHintGiver(id, NAME_DATA[id], new Vector2(x, y), new Image(SPRITE_DATA[id]),
-                        COLL_DATA[id], SPEED_DATA[id], CD_DATA[id], HP_DATA[id], DMG_DATA[id], false);
+                        COLL_DATA[id], SPEED_DATA[id], CD_DATA[id], HP_DATA[id], DMG_DATA[id], false, DEFAULT_TALKTIME);
 
             } else if(role == ROLE_QUEST_ENDER) {
                 toAdd = new QuestEnder(id, NAME_DATA[id], new Vector2(x, y), new Image(SPRITE_DATA[id]), COLL_DATA[id],
-                        SPEED_DATA[id], CD_DATA[id], HP_DATA[id], DMG_DATA[id], false);
+                        SPEED_DATA[id], CD_DATA[id], HP_DATA[id], DMG_DATA[id], false, DEFAULT_TALKTIME);
 
             } else {
                 System.out.println("No such role.");

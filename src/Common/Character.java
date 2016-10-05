@@ -1,7 +1,5 @@
 package Common;
 
-import Common.Entity;
-import Common.Vector2;
 import GameManager.MapManager;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -9,9 +7,11 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 /**
- * Created by noxm on 22/09/16.
+ * characters are able to move, attack, talk, damage.
+ * @author MaxLee
  */
 public abstract class Character extends Entity {
+    // basics
     private final double ACCEL_MODIFIER = 0.90;
     private final double DECEL_MODIFIER = 0.03;
     private final double STOP_SPEED = 0.01;
@@ -36,15 +36,28 @@ public abstract class Character extends Entity {
 
     // helper
     private boolean isAttacking;
+    private boolean isTalking;
     private String speech;
 
     // abstract methods
     @Override
-    public abstract void innerUpdate(int delta) throws SlickException;
+    protected abstract void innerUpdate(int delta) throws SlickException;
     @Override
-    public abstract void handleCollision(Entity[] entities);
-    public abstract void handleDeath();
+    protected abstract void handleCollision(Entity[] entities);
+    protected abstract void handleDeath();
 
+    /**
+     * create character
+     * @param name default name
+     * @param pos default pos
+     * @param sprite default sprite
+     * @param collisionRadius default radius
+     * @param speed default speed
+     * @param cooldown default cooldwon
+     * @param HP default HP
+     * @param damage default damage
+     * @param isBasic default movement method
+     */
     public Character(String name, Vector2 pos, Image sprite, int collisionRadius, double speed, int cooldown, int HP,
                      int damage, boolean isBasic) {
         super(name, pos, sprite, collisionRadius);
@@ -64,6 +77,11 @@ public abstract class Character extends Entity {
         dc = speed * DECEL_MODIFIER;
     }
 
+    /**
+     * make the character talk
+     * @param line string to display
+     * @param g slick graphics
+     */
     public void talk(String line, Graphics g) {
         int height = getSprite().getHeight() + DISPLAY_OFFSET + HALF_FONT_SIZE * 4;
         Vector2 loc = calcBarLoc(line, height);
@@ -76,6 +94,10 @@ public abstract class Character extends Entity {
         g.drawString(line, (float)strLoc.x, (float)strLoc.y);
     }
 
+    /**
+     * set current speech
+     * @param line string line to make it to speech
+     */
     public void setSpeech(String line) {
         speech = line;
     }
@@ -87,8 +109,27 @@ public abstract class Character extends Entity {
         return 0f;
     }
 
+    /**
+     * slick update
+     * @param delta milliseconds passed since previous frame
+     * @throws SlickException
+     */
     @Override
-    public void displayStatus(Graphics g) {
+    public void update(int delta) throws SlickException {
+        if(!isDestroyed()) {
+            handleDeath();
+            innerUpdate(delta);
+            updateCooldown(delta);
+        }
+    }
+
+    /**
+     * function called for display status
+     * protected so that it cannot be called from World
+     * @param g slick graphics
+     */
+    @Override
+    protected void displayStatus(Graphics g) {
         int height = getSprite().getHeight() + DISPLAY_OFFSET;
         Vector2 size = calcBarSize(getName());
         Vector2 loc = calcBarLoc(getName(), height);
@@ -108,19 +149,60 @@ public abstract class Character extends Entity {
         }
     }
 
+    /**
+     * increase damage point
+     * @param val value to increase by
+     */
+    public void addDamagePoint(int val) {
+        damage += val;
+    }
+
+    /**
+     * increase cooldwon
+     * @param val value to increase by
+     */
+    public void addCD(int val) {
+        cooldown += val;
+        resetCurrCooldown();
+    }
+
+    /**
+     * increase max hp and hp
+     * @param val value to increase by
+     */
+    public void addHP (int val) {
+        maxHP += val;
+        currHP += val;
+    }
+
+    /**
+     * make character get damaged
+     * @param dmg damage to apply
+     */
     public void getDamaged(int dmg) {
         currHP -= dmg;
     }
 
+    /**
+     * update cooldown
+     * @param delta milliseconds passed since last frame
+     */
     protected void updateCooldown(int delta) {
         currCooldown -= delta;
         currCooldown = (currCooldown < 0) ? 0 : currCooldown;
     }
 
+    /**
+     * reset current cooldown to maximum
+     */
     public void resetCurrCooldown() {
         currCooldown = cooldown;
     }
 
+    /**
+     * handle character movement
+     * @param delta milliseconds passed since last frame
+     */
     protected void handleMovement(int delta) {
         // move char
         if(moveCheck(delta))
@@ -138,6 +220,8 @@ public abstract class Character extends Entity {
      * Checks whether movement speed is above limit.
      * Basic mode follows the specs and limits x and y
      * Non-Basic mode sets the magnitude of the movement vector
+     * @param delta milliseconds passed since last frame
+     * @return true if valid, false otherwise
      */
     private boolean moveCheck(int delta) {
         // check if movement is above limit and sets move accordingly
@@ -265,5 +349,13 @@ public abstract class Character extends Entity {
 
     public double getDc() {
         return dc;
+    }
+
+    public boolean isTalking() {
+        return isTalking;
+    }
+
+    public void setTalking(boolean val) {
+        isTalking = val;
     }
 }

@@ -24,6 +24,18 @@ public abstract class Entity implements Collidable{
     private Image currSprite;
     private boolean destroyed;
 
+    // abstract methods to implement
+    // protected so that they cannot be called in World
+    protected abstract void innerUpdate(int delta) throws SlickException;
+    protected abstract void handleCollision(Entity[] entities);
+
+    /**
+     * Create entity
+     * @param name name of the entity
+     * @param pos starting position
+     * @param sprite starting sprite
+     * @param collisionRadius starting collision radius
+     */
     public Entity(String name, Vector2 pos, Image sprite, int collisionRadius) {
         this.sprite = sprite;
         this.currSprite = sprite;
@@ -33,11 +45,11 @@ public abstract class Entity implements Collidable{
         this.destroyed = false;
     }
 
-    // abstract methods
-    public abstract void innerUpdate(int delta) throws SlickException;
-    public abstract void handleCollision(Entity[] entities);
-
-    // collidable partial implementation
+    /**
+     * check if collidied with the entity
+     * @param entity entity to check
+     * @return true if collidied, false otherwise
+     */
     @Override
     public boolean hasCollided(Entity entity) {
         if(!destroyed) {
@@ -53,33 +65,54 @@ public abstract class Entity implements Collidable{
      * Render for slick2d
      * @throws SlickException
      */
-    public final void render(Graphics g) throws SlickException {
+    public void render(Graphics g) throws SlickException {
         if(!destroyed)
             getCurrSprite().drawCentered((float) getPos().x, (float) getPos().y);
     }
 
-    public final void update(int delta) throws SlickException {
+    /**
+     * update for slick2d
+     * @param delta milliseconds passed since previous frame
+     * @throws SlickException
+     */
+    public void update(int delta) throws SlickException {
         if(!destroyed)
             innerUpdate(delta);
     }
 
+    /**
+     * handle permanent destruction of object from the world
+     */
     public final void destroy() {
         this.destroyed = true;
     }
 
+    /**
+     * handle collision call for the world
+     * @param entities array of entities that has collided
+     */
     public final void doCollision(Entity[] entities) {
         if(!destroyed)
             handleCollision(entities);
     }
 
+
+    /**
+     * render status for the entity for the world
+     * @param g slick graphics
+     */
     public final void renderStatus(Graphics g) {
         if(!destroyed) {
             displayStatus(g);
         }
     }
 
-    // this is overridden for custom displays
-    public void displayStatus(Graphics g) {
+    /**
+     * function called for display status
+     * protected so that it cannot be called from World
+     * @param g slick graphics
+     */
+    protected void displayStatus(Graphics g) {
         int height = sprite.getHeight() + DISPLAY_OFFSET;
         Vector2 size = calcBarSize(name);
         Vector2 loc = calcBarLoc(name, height);
@@ -91,19 +124,36 @@ public abstract class Entity implements Collidable{
         g.drawString(getName(), (float)strLoc.x, (float)strLoc.y);
     }
 
-    // for UI
+    // For UI
+
+    /**
+     * calculate background bar size required for the string
+     * @param str string to consider
+     * @return
+     */
     public Vector2 calcBarSize(String str) {
         int barWidth = HALF_FONT_SIZE*str.length() + DISPLAY_OFFSET,
             barHeight = HALF_FONT_SIZE*2;
         return new Vector2(barWidth, barHeight);
     }
 
+    /**
+     * calculate background bar location required for the string
+     * @param str string to consider
+     * @return
+     */
     public Vector2 calcBarLoc(String str, int height) {
         float barLocX = (float)getPos().x - str.length()* HALF_FONT_SIZE/2 - DISPLAY_OFFSET/2,
               barLocY = (float)getPos().y - (float)height/2 - DISPLAY_OFFSET;
         return new Vector2(barLocX, barLocY);
     }
 
+    /**
+     * calcualte string position for display
+     * @param str string to consider
+     * @param height height of sprite
+     * @return
+     */
     public Vector2 calcString(String str, int height) {
         float xPos = (float) pos.x - (float) str.length() * HALF_FONT_SIZE / 2,
               yPos = (float) pos.y - (float) height / 2 - DISPLAY_OFFSET;
@@ -149,6 +199,10 @@ public abstract class Entity implements Collidable{
 
     public void setPos(Vector2 p) {
         this.pos = p;
+    }
+
+    public boolean isDestroyed() {
+        return destroyed;
     }
 
 }

@@ -1,4 +1,6 @@
-package GameData;/*
+package GameData;
+
+/*
  * Created by Bermuda_UT on 28/08/16.
  * Name      : Max Lee
  * StudentID : 719577
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 /**
  * Represents the entire game world.
  * (Designed to be instantiated just once for the whole game).
+ * @author Ma Lee
  */
 public class World {
     private static final int ENTITY_LIMIT   = 10000;
@@ -27,6 +30,9 @@ public class World {
 
     /**
      * Create a new GameData.World object.
+     * @param player player to use
+     * @param cam camera to use
+     * @throws SlickException
      */
     public World(Player player, CameraManager cam) throws SlickException {
         map = new MapManager(MAP_FILE, MAP_DIR, cam);

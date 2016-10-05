@@ -6,6 +6,10 @@
 
 package Common;
 
+/**
+ * custom vector2 class
+ * @author MaxLee
+ */
 public class Vector2 {
     // makes more sense to be public rather than encapsulated for no reason
     public double x, y;

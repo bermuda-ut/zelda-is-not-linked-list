@@ -4,7 +4,6 @@
  * StudentID : 719577
  */
 
-import Common.Vector2;
 import GameData.World;
 import GameManager.CameraManager;
 import GameManager.UIManager;
@@ -19,20 +18,24 @@ import GameManager.InputManager;
 /**
  * Main class for the Role-Playing Game engine.
  * Handles initialisation, input and rendering.
+ * @author MaxLee
  */
 public class RPG extends BasicGame {
     // world will handle all in-game entities
     private World world;
+
     // manager is not part of the game world (not an entity) and managed differently.
     private InputManager inputManager;
+
+    // player can (ideally) travel across worlds
     private Player player;
+
+    // ui and camera is tied to the game, not world
     private UIManager ui;
     private CameraManager worldCam;
+
     public static final int SCREEN_WIDTH  = 800;
     public static final int SCREEN_HEIGHT = 600;
-    private static final Vector2 PLAYER_STARTING_POS = new Vector2(756, 684);
-    private static final float PLAYER_SPEED = 0.25f;
-    private static final String PLAYER_SPRITE = "assets/units/player.png";
 
     public RPG() {
         super("Zelda_is_not_Link[ed_List].exe");
@@ -45,7 +48,8 @@ public class RPG extends BasicGame {
     @Override
     public void init(GameContainer gc) throws SlickException {
         // input manager is passed on to GameData.World to attach player that is in the world
-        player = new Player(PLAYER_STARTING_POS.x, PLAYER_STARTING_POS.y, PLAYER_SPEED, PLAYER_SPRITE);
+        player = new Player(Player.PLAYER_STARTING_POS.x, Player.PLAYER_STARTING_POS.y,
+                            Player.PLAYER_SPEED, Player.PLAYER_SPRITE);
         inputManager = new InputManager(player, SCREEN_WIDTH, SCREEN_HEIGHT);
         worldCam = new CameraManager(player, RPG.SCREEN_WIDTH, RPG.SCREEN_HEIGHT, true);
         world = new World(player, worldCam);

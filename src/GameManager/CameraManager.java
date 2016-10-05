@@ -32,6 +32,10 @@ public class CameraManager {
         this.followEntity     = followEntity;
     }
 
+    /**
+     * calculate render position
+     * @return tile position to render for the mab
+     */
     public Vector2 getRenderPos() {
         Vector2 camPos = (followEntity) ? toFollow.getPos() : pos;
 
@@ -41,6 +45,8 @@ public class CameraManager {
         return new Vector2(tileX, tileY);
     }
 
+    // getters and setters
+
     public int getCameraWidth() {
         return cameraWidth;
     }
@@ -48,14 +54,4 @@ public class CameraManager {
     public int getCameraHeight() {
         return cameraHeight;
     }
-
-   /*
-    public int getCameraWidthTile() {
-        return cameraWidthTile;
-    }
-
-    public int getCameraHeightTile() {
-        return cameraHeightTile;
-    }
-    */
 }

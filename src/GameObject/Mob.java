@@ -36,9 +36,9 @@ public class Mob extends Character {
 
     @Override
     public void innerUpdate(int delta) throws SlickException {
-        handleDeath();
         prevPos = this.getPos().copy();
         Vector2 playerPos = Player.getCurrPlayer().getPos();
+
         if(isAggro) {
             double dist = playerPos.distance(getPos());
             if(dist <= VISION) {
@@ -74,7 +74,6 @@ public class Mob extends Character {
             rerollPrevMove();
 
         actionTime += delta;
-        updateCooldown(delta);
     }
 
     @Override

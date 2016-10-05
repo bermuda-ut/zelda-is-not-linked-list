@@ -5,18 +5,21 @@ import GameObject.Mob;
 import org.newdawn.slick.Image;
 
 /**
- * Created by noxm on 25/09/16.
+ * handle mob identities
+ * also has methods to mass-add mobs to world
+ * @author MaxLee
  */
 public abstract class MobPresets {
-    /*
-     * MOB DATA
-     * id | mob
-     *  0 | bat
-     *  1 | zombie
-     *  2 | bandit
-     *  3 | skeleton
-     *  4 | draelic
-     */
+
+    // bunch of constants
+
+    public static final int ID_BAT = 0,
+                            ID_ZOMBIE = 1,
+                            ID_BANDIT = 2,
+                            ID_SKEL = 3,
+                            ID_DRAE = 4;
+
+
     private static final int[] HP_DATA = {
             40,
             60,
@@ -83,6 +86,13 @@ public abstract class MobPresets {
 
     private static boolean mobMovementBasic = false;
 
+    /**
+     * add mob to the world
+     * @param id mob id
+     * @param x x-coord
+     * @param y y-coord
+     * @param world world to add to
+     */
     public static void addMobByID(int id, double x, double y, World world) {
         try {
             world.addEntity(new Mob(id, NAME_DATA[id], new Vector2(x, y), new Image(SPRITE_DATA[id]), COLL_DATA[id],
@@ -93,8 +103,12 @@ public abstract class MobPresets {
         }
     }
 
+    /**
+     * add bunch of mobs to the world
+     * @param world world to add to
+     */
     public static void addAllMobs(World world) {
-        final int[] bats = {
+        final int[] BAT_POS = {
             1431,864,
             1154,1321,
             807,2315,
@@ -127,7 +141,7 @@ public abstract class MobPresets {
             5314,274,
         };
 
-        final int[] zombies = {
+        final int[] ZOMBIE_POS = {
                 681, 3201,
                 691, 4360,
                 2166, 2650,
@@ -168,7 +182,7 @@ public abstract class MobPresets {
                 2099, 956,
         };
 
-        final int[] bandits = {
+        final int[] BANDIT_POS = {
                 1889, 2581,
                 4502, 6283,
                 5248, 6581,
@@ -205,7 +219,7 @@ public abstract class MobPresets {
                 2069, 1028,
         };
 
-        final int[] skeletons = {
+        final int[] SKELETON_POS = {
                 1255, 2924,
                 2545, 4708,
                 4189, 6585,
@@ -232,28 +246,28 @@ public abstract class MobPresets {
                 2143, 1048,
         };
 
-        int[] boss = {
+        final int[] DRAE = {
             2069, 510
         };
 
-        for(int i = 0; i < bats.length; i+=2) {
-            addMobByID(0, bats[i], bats[i+1], world);
+        for(int i = 0; i < BAT_POS.length; i+=2) {
+            addMobByID(ID_BAT, BAT_POS[i], BAT_POS[i+1], world);
         }
 
-        for(int i = 0; i < zombies.length; i+=2) {
-            addMobByID(1, zombies[i], zombies[i+1], world);
+        for(int i = 0; i < ZOMBIE_POS.length; i+=2) {
+            addMobByID(ID_ZOMBIE, ZOMBIE_POS[i], ZOMBIE_POS[i+1], world);
         }
 
-        for(int i = 0; i < bandits.length; i+=2) {
-            addMobByID(2, bandits[i], bandits[i+1], world);
+        for(int i = 0; i < BANDIT_POS.length; i+=2) {
+            addMobByID(ID_BANDIT, BANDIT_POS[i], BANDIT_POS[i+1], world);
         }
 
-        for(int i = 0; i < skeletons.length; i+=2) {
-            addMobByID(3, skeletons[i], skeletons[i+1], world);
+        for(int i = 0; i < SKELETON_POS.length; i+=2) {
+            addMobByID(ID_SKEL, SKELETON_POS[i], SKELETON_POS[i+1], world);
         }
 
-        for(int i = 0; i < boss.length; i+=2) {
-            addMobByID(4, boss[i], boss[i + 1], world);
+        for(int i = 0; i < DRAE.length; i+=2) {
+            addMobByID(ID_DRAE, DRAE[i], DRAE[i + 1], world);
         }
 
     }
