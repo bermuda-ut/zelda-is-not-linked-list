@@ -40,7 +40,7 @@ public class CameraManager {
         Vector2 camPos = (followEntity) ? toFollow.getPos() : pos;
 
         double tileX = camPos.x - cameraWidth / 2,
-               tileY = camPos.y - cameraHeight / 2;
+               tileY = camPos.y + UIManager.PANEL_HEIGHT / 2 - cameraHeight / 2;
 
         return new Vector2(tileX, tileY);
     }
