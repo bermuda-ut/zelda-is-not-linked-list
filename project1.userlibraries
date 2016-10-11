@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <eclipse-userlibraries>
   <library name="mulit_platform_slick_libraries">
-    <archive path="/home/noxm/Bermuda/Java/mulit_platform_slick_libraries/lwjgl.jar" />
-    <archive path="/home/noxm/Bermuda/Java/mulit_platform_slick_libraries/slick.jar" />
-    <archive path="/home/noxm/Bermuda/Java/mulit_platform_slick_libraries/jinput.jar" />
+    <archive path="/home/noxm/Bermuda/Java/project1/lib/lwjgl.jar" />
+    <archive path="/home/noxm/Bermuda/Java/project1/lib/slick.jar" />
+    <archive path="/home/noxm/Bermuda/Java/project1/lib/jinput.jar" />
   </library>
 </eclipse-userlibraries>
 
