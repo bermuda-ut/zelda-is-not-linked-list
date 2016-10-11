@@ -10,7 +10,6 @@ import Common.Character;
 import Common.Entity;
 import Common.Vector2;
 import PlayerData.Inventory;
-import org.lwjgl.Sys;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
