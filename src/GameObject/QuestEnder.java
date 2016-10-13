@@ -66,7 +66,8 @@ public class QuestEnder extends NPC {
     }
 
     /**
-     * this guy does not die
+     * this guy does not die.
+     * what an asshole.
      */
     @Override
     public void handleDeath() {

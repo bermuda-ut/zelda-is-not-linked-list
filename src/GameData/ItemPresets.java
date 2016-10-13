@@ -89,6 +89,8 @@ public abstract class ItemPresets {
      * @param world world to add to
      */
     public static void addAllItems(World world) {
+        // these constants are independent from the class and only relates to this function therefore they are declared
+        // here rather than with class attributes.
         final Vector2 AMULET_POS = new Vector2(965, 3563);
         final Vector2 SWORD_POS = new Vector2(546, 6707);
         final Vector2 TOME_POS = new Vector2(4719, 1253);

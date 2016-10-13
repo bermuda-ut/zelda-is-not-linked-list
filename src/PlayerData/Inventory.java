@@ -50,6 +50,7 @@ public class Inventory {
     }
 
     /**
+     * !!UNTESTED!!
      * remove item from inventory. not required implementation
      * @param id id of the item to remove
      * @return true of removal was success, false otherwise

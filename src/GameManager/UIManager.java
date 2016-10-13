@@ -39,6 +39,7 @@ public class UIManager {
 
     /**
      * render ui according to given code
+     * WARNING: DISGUSTING CODE
      * @param g slick graphics
      * @param screenwidth game screen width
      * @param screenheight game screen height

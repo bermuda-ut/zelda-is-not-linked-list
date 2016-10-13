@@ -12,6 +12,7 @@ public abstract class NPC extends Character {
     private int id;
     private int talkTime;
     private int currTalkTime;
+    public static final String NO_TALK = "";
 
     /**
      * create new npc
@@ -52,7 +53,7 @@ public abstract class NPC extends Character {
         currTalkTime = (currTalkTime < 0)? 0 : currTalkTime;
 
         if(currTalkTime == 0) {
-            setSpeech("");
+            setSpeech(NO_TALK);
             setTalking(false);
         }
     }
@@ -64,7 +65,7 @@ public abstract class NPC extends Character {
     protected void handleDeath() {
         if(this.getCurrHP() <= 0) {
             // the dead does not speak.
-            setSpeech("");
+            setSpeech(NO_TALK);
             this.destroy();
         }
     }

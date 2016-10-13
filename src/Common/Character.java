@@ -177,10 +177,11 @@ public abstract class Character extends Entity {
 
     /**
      * make character get damaged
-     * @param dmg damage to apply
+     * @param dmg damage to apply (maximum damage)
      */
     public void getDamaged(int dmg) {
-        currHP -= dmg;
+        // random damage
+        currHP -= dmg * Math.random();
     }
 
     /**

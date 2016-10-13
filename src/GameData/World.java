@@ -1,11 +1,5 @@
 package GameData;
 
-/*
- * Created by Bermuda_UT on 28/08/16.
- * Name      : Max Lee
- * StudentID : 719577
- */
-
 import GameManager.CameraManager;
 import GameManager.MapManager;
 import GameObject.*;
@@ -21,7 +15,7 @@ import java.util.ArrayList;
  * @author Ma Lee
  */
 public class World {
-    private static final int ENTITY_LIMIT   = 10000;
+    private static final int ENTITY_LIMIT = 10000;
     private static final String MAP_FILE = "assets/map.tmx";
     private static final String MAP_DIR = "assets/";
 

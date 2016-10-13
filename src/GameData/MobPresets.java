@@ -108,6 +108,9 @@ public abstract class MobPresets {
      * @param world world to add to
      */
     public static void addAllMobs(World world) {
+        // these constants are independent from the class and only relates to this function therefore they are declared
+        // here rather than with class attributes.
+
         final int[] BAT_POS = {
             1431,864,
             1154,1321,

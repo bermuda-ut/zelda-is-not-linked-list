@@ -1,9 +1,3 @@
-/*
- * Created by Bermuda_UT on 28/08/16.
- * Name      : Max Lee
- * StudentID : 719577
- */
-
 import GameData.World;
 import GameManager.CameraManager;
 import GameManager.UIManager;

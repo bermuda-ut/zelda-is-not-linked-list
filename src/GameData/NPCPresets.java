@@ -93,9 +93,11 @@ public abstract class NPCPresets {
     }
 
     public static void addAllNPC(World world) {
+        // these constants are independent from the class and only relates to this function therefore they are declared
+        // here rather than with class atributes.
         final Vector2 HEALER_POS = new Vector2(738, 549);
-        final Vector2 QHINT_POS = new Vector2(756, 870);
-        final Vector2 QEND_POS = new Vector2(467, 679);
+        final Vector2 QHINT_POS  = new Vector2(756, 870);
+        final Vector2 QEND_POS   = new Vector2(467, 679);
 
         addNPCbyID(0, ROLE_HEALER, HEALER_POS.x, HEALER_POS.y, world);
         addNPCbyID(1, ROLE_QUEST_HINTER, QHINT_POS.x, QHINT_POS.y, world);

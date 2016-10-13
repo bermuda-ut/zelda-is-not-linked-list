@@ -18,7 +18,7 @@ import org.newdawn.slick.SlickException;
  * @author playable entity in game
  */
 public class Player extends Character {
-    // for testing, you can continue as negative health in G0dM0d3
+    // for testing, you can continue without respawning but continue as 0 hp in G0dM0d3
     public static final boolean GOD_MODE = false;
 
     public static final Vector2 PLAYER_STARTING_POS = new Vector2(756, 684);

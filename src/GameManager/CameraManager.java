@@ -29,7 +29,7 @@ public class CameraManager {
         this.toFollow     = toFollow;
         this.cameraHeight = cameraHeight;
         this.cameraWidth  = cameraWidth;
-        this.followEntity     = followEntity;
+        this.followEntity = followEntity;
     }
 
     /**
